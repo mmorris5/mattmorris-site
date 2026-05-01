@@ -1,125 +1,148 @@
 import { useState } from 'react'
-import { Button, TextInput } from 'morris-ui'
+import emailjs from '@emailjs/browser'
+import { Alert, Button, Card, TextInput } from 'morris-ui'
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically send the form data to a server
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' })
-      setSubmitted(false)
-    }, 3000)
+    setLoading(true)
+    setError(false)
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        { from_name: name, from_email: email, message },
+        EMAILJS_PUBLIC_KEY,
+      )
+      setSubmitted(true)
+      setName('')
+      setEmail('')
+      setMessage('')
+      setTimeout(() => setSubmitted(false), 5000)
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <section className="py-20 px-4">
+    <section className="min-h-screen py-20 px-4">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-          Get In Touch
-        </h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">Get In Touch</h2>
+        <p className="text-slate-500 text-center mb-12">
+          Have a project in mind? Let's talk. I'm always open to new opportunities.
+        </p>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xl font-semibold text-blue-400 mb-2">Contact Info</h3>
-              <p className="text-slate-400">
-                Feel free to reach out to me for any inquiries or collaboration opportunities.
-              </p>
-            </div>
+        {submitted && (
+          <Alert variant="success" title="Message Sent!" closeable onClose={() => setSubmitted(false)} className="mb-8">
+            Thanks for reaching out — I'll get back to you soon.
+          </Alert>
+        )}
 
-            <div className="space-y-4">
-              <a
-                href="mailto:hello@mattmorris.dev"
-                className="flex items-center text-slate-300 hover:text-cyan-400 transition-colors"
-              >
-                <svg className="w-5 h-5 mr-3 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                hello@mattmorris.dev
-              </a>
+        {error && (
+          <Alert variant="danger" title="Something went wrong" closeable onClose={() => setError(false)} className="mb-8">
+            Failed to send your message. Please try again or email me directly.
+          </Alert>
+        )}
 
-              <a
-                href="https://github.com"
-                className="flex items-center text-slate-300 hover:text-cyan-400 transition-colors"
-              >
-                <svg className="w-5 h-5 mr-3 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.415-4.033-1.415-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-                GitHub
-              </a>
-
-              <a
-                href="https://linkedin.com"
-                className="flex items-center text-slate-300 hover:text-cyan-400 transition-colors"
-              >
-                <svg className="w-5 h-5 mr-3 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.004 1.418-.103.249-.129.597-.129.946v5.441h-3.554s.05-8.814 0-9.752h3.554v1.381c.43-.664 1.199-1.61 2.920-1.61 2.134 0 3.733 1.39 3.733 4.37v5.611zM5.337 8.855c-1.144 0-1.915-.758-1.915-1.71 0-.955.771-1.71 1.958-1.71 1.187 0 1.915.755 1.940 1.71 0 .952-.753 1.71-1.983 1.71zm1.581 11.597H3.635V9.555h3.283v10.897zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-                </svg>
-                LinkedIn
-              </a>
-            </div>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <Card variant="glass" className="p-8 mb-12">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <TextInput
               label="Name"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
+              required
             />
-
             <TextInput
               label="Email"
               type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your.email@example.com"
               required
-              placeholder="your@email.com"
             />
-
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">
-                Message
-              </label>
+              <label className="block text-sm font-medium mb-1 text-slate-700">Message</label>
               <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Tell me about your project or idea..."
                 required
-                rows={5}
-                className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                placeholder="Your message..."
+                rows={6}
+                className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
               />
             </div>
 
-            <Button
-              type="submit"
-              className="w-full"
-            >
-              {submitted ? '✓ Message Sent!' : 'Send Message'}
+            <Button type="submit" variant="primary" size="lg" className="w-full" disabled={loading}>
+              {loading ? 'Sending…' : 'Send Message'}
             </Button>
           </form>
+        </Card>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            {
+              title: 'Email',
+              value: 'matt.m.morris2@gmail.com',
+              href: 'mailto:matt.m.morris2@gmail.com',
+              icon: (
+                <svg viewBox="0 0 24 24" className="w-5 h-5" aria-hidden="true">
+                  <path fill="#EA4335" d="M1.5 6.75A2.25 2.25 0 0 1 3.75 4.5h16.5a2.25 2.25 0 0 1 2.25 2.25v.35L12 13.65 1.5 7.1v-.35Z" />
+                  <path fill="#34A853" d="M1.5 9.52V17.25A2.25 2.25 0 0 0 3.75 19.5h3.8V11.9L1.5 9.52Z" />
+                  <path fill="#4285F4" d="M22.5 9.52V17.25a2.25 2.25 0 0 1-2.25 2.25h-3.8V11.9l6.05-2.38Z" />
+                  <path fill="#FBBC04" d="M7.55 19.5h8.9V11.9L12 14.85 7.55 11.9v7.6Z" />
+                </svg>
+              ),
+            },
+            {
+              title: 'GitHub',
+              value: 'github.com/mmorris5',
+              href: 'https://github.com/mmorris5',
+              icon: (
+                <svg viewBox="0 0 16 16" className="w-5 h-5" fill="currentColor" aria-hidden="true">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8Z" />
+                </svg>
+              ),
+            },
+            {
+              title: 'LinkedIn',
+              value: 'linkedin.com/in/matt-morris2',
+              href: 'https://linkedin.com/in/matt-morris2',
+              icon: (
+                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#0A66C2" aria-hidden="true">
+                  <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.67H9.32V9h3.42v1.56h.05c.48-.9 1.64-1.86 3.38-1.86 3.62 0 4.29 2.38 4.29 5.47v6.28ZM5.3 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.08 20.45H3.52V9h3.56v11.45Z" />
+                </svg>
+              ),
+            },
+          ].map((c) => (
+            <Card key={c.title} className="relative p-6 text-center">
+              <h3 className="font-bold mb-2 flex items-center justify-center gap-2">
+                {c.icon}
+                {c.title}
+              </h3>
+              <p className="text-slate-500 text-sm">Click to open</p>
+              <a
+                href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0"
+                aria-label={`Open ${c.title}`}
+              />
+            </Card>
+          ))}
         </div>
       </div>
     </section>
