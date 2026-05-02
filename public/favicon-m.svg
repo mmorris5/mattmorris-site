@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Matt Morris favicon</title>
+  <desc id="desc">Gradient letter M favicon</desc>
+  <defs>
+    <linearGradient id="m-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="50%" stop-color="#0891B2" />
+      <stop offset="100%" stop-color="#14B8A6" />
+    </linearGradient>
+  </defs>
+  <path
+    fill="url(#m-gradient)"
+    d="M12 52V12h11l9 20 9-20h11v40h-8V25L35 44h-6l-9-19v27H12Z"
+  />
+</svg>
