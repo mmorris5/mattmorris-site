@@ -107,9 +107,9 @@ This project is open source and available under the MIT License.
 
 ## Contact
 
-- 📧 Email: hello@mattmorris.dev
-- 🐙 GitHub: [github.com](https://github.com)
-- 💼 LinkedIn: [linkedin.com](https://linkedin.com)
+- 📧 Email: matt.m.morris2@gmail.com
+- 🐙 GitHub: [github.com](https://github.com/mmorris5)
+- 💼 LinkedIn: [linkedin.com](https://linkedin.com/in/matt-morris2)
 
 ---
 
