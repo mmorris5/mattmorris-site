@@ -21,8 +21,7 @@ export default function App() {
 
   const navItems = sections.map((s) => ({
     label: s.label,
-    href: '#',
-    onClick: () => setActiveSection(s.id),
+    href: `#${s.id}`,
   }))
 
   const branding = (
@@ -57,7 +56,14 @@ export default function App() {
 
           {/* Mobile hamburger */}
           <div className="md:hidden">
-            <HamburgerMenu items={navItems} branding={branding} />
+            <HamburgerMenu
+              items={navItems}
+              branding={branding}
+              onItemClick={(item) => {
+                const sectionId = item.href.replace('#', '') as Section
+                setActiveSection(sectionId)
+              }}
+            />
           </div>
         </div>
       </nav>
