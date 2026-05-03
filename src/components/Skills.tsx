@@ -14,7 +14,7 @@ const skillCategories = [
   {
     category: 'Tools & DevOps',
     badge: 'accent' as const,
-    skills: ['Git', 'Docker', 'AWS', 'GitHub Actions', 'CI/CD', 'Figma'],
+    skills: ['Git', 'Docker', 'AWS', 'Azure', 'CI/CD', 'Figma'],
   },
   {
     category: 'Soft Skills',

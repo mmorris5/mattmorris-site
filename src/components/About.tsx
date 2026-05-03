@@ -32,7 +32,7 @@ export default function About() {
           {[
             { title: 'Frontend', desc: 'Developing modern, responsive UIs using React, TypeScript, and Next.js. Focused on performance, reusable components, and creating intuitive user experiences.' },
             { title: 'Backend', desc: 'Building backend services with Spring Boot and Express, working with PostgreSQL and MongoDB to support data-driven applications and API integrations.' },
-            { title: 'Tools', desc: 'Leveraging tools like Git, Docker, and AWS for development and deployment, along with GitHub Actions for CI/CD and Figma for collaborating on UI/UX.' },
+            { title: 'Tools', desc: 'Leveraging tools like Git, Docker, and AWS for development and deployment, along with Jenkins & Gitlab for CI/CD and Figma for collaborating on UI/UX.' },
           ].map((item) => (
             <Card key={item.title} className="p-6">
               <h3 className="font-bold text-lg mb-2 text-blue-600">{item.title}</h3>
