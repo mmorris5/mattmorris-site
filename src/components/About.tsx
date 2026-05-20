@@ -16,13 +16,13 @@ export default function About() {
             />
             <div className="flex-1 space-y-4">
               <p className="text-slate-600 leading-relaxed">
-                I’m a software engineer with a frontend focus, currently working on a React-based wealth management platform where I’ve taken on UI ownership and help shape how the product is built and evolves.
+                I'm a full-stack software engineer currently working on a React-based wealth management platform where I've taken on UI ownership and help shape the entire product architecture and how the platform evolves.
               </p>
               <p className="text-slate-600 leading-relaxed">
                 I enjoy building applications that deal with real-world data and user workflows — recently working on projects like a stock screening platform with configurable technical indicators and a marketplace app for local activities.
               </p>
               <p className="text-slate-600 leading-relaxed">
-                I’m most comfortable working across the stack with React, Node.js, and modern web tooling, but I’m especially drawn to frontend work where performance, usability, and product decisions intersect.
+                I'm comfortable building full-stack applications with React, Node.js, Spring Boot, and modern web tooling. I'm passionate about solving problems across the entire stack—from backend architecture and databases to frontend performance and user experience.
               </p>
             </div>
           </div>

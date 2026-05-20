@@ -26,7 +26,7 @@ export default function Hero({ setActiveSection }: HeroProps) {
         </h1>
 
         <p className="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed">
-          Frontend-focused engineer building performant, scalable apps with React and modern web tooling.          <br />
+          Full-stack developer building performant, scalable apps across the entire stack.          <br />
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -32,18 +32,18 @@ const experience = [
       'Working on a React-based wealth management platform, where I’ve taken on UI ownership and contribute to the overall architecture and user experience. Build and maintain scalable frontend features, collaborate across teams, and help drive product decisions in a production environment.',
   },
   {
-    role: 'Frontend Developer',
+    role: 'Full-Stack Developer',
     company: 'U-In, Incorporated',
     period: '2024 – Present',
     description:
-      'Contributing to a marketplace platform for local activities, focused on building the user interface and core user flows. Worked on responsive design, user onboarding, and features that connect merchants with customers in a real-world product setting.',
+      'Contributing to a marketplace platform for local activities across the full stack. Worked on backend services, responsive design, user onboarding, and features that connect merchants with customers in a real-world product setting.',
   },
   {
-    role: 'Software Engineer',
+    role: 'Full-Stack Software Engineer',
     company: 'Union Bank',
     period: '2021 – 2023',
     description:
-      'Started in a backend-focused role working with Java and Spring Boot to build and maintain internal banking services. Gained experience with APIs, enterprise systems, and production-level code before transitioning into more frontend-focused work.',
+      'Worked across the stack with Java and Spring Boot to build and maintain internal banking services. Gained experience with APIs, enterprise systems, production-level code, and frontend integration in a financial services environment.',
   },
 ]
 
